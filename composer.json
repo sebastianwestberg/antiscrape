@@ -1,0 +1,17 @@
+{
+    "name": "sebastianwestberg/antiscrape",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Westberg",
+            "email": "sebastianostbrink@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+         
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    }
+}
