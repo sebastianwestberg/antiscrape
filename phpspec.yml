@@ -1,0 +1,4 @@
+formatter.name: pretty
+suites:
+    antiscrape_suite:
+        namespace: Antiscrape

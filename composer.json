@@ -16,5 +16,8 @@
     },
     "config": {
         "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": { "Antiscrape": "src/" }
     }
 }
