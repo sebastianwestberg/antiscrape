@@ -21,14 +21,7 @@ class NumberSpec extends ObjectBehavior
     {
     	$this->getData()->shouldbeInt(1);
     }
-
-    function it_stores_data()
-    {
-    	$number = 1234;
-    	$this->setSubject($number);    	
-		$this->getSubject()[0]->shouldbe($number);
-    }
-
+    
     function it_generates_random_int()
     {
     	$this->generateData()->shouldBeInt();
