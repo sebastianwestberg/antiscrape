@@ -4,5 +4,5 @@ namespace Antiscrape\DataGenerator;
 
 interface DataGeneratorInterface
 {
-	public function generateData();
+    public function generateData();
 }
