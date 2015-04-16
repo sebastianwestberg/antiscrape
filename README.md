@@ -35,3 +35,4 @@ echo '<style>' . $scrambler->getFormatting() . '</style>';
 - The scrambler shouldn't specify the formatting directly. It should only specify whether the current element should be visible or not
 - Come up with a better name for "Formatter"?
 - Tidy up interfaces and come up with more convenient setters/getters names
+
