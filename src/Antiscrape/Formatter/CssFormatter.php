@@ -4,18 +4,18 @@ namespace Antiscrape\Formatter;
 
 class CssFormatter implements FormatterInterface
 {
-	private static $css = array();
+	private $css = array();
 
 	public function addFormatting($data = array())
 	{
-		CssFormatter::$css[] = sprintf(".%s{%s}", $data['selector'], $data['style']);
+		$this->css[] = sprintf(".%s{%s}", $data['selector'], $data['style']);
 	}
 
-	public static function getFormatting()
+	public function getFormatting()
 	{
 		$str = '';
 
-		foreach (CssFormatter::$css as $css) {
+		foreach ($this->css as $css) {
 			$str .= $css;
 		}
 
