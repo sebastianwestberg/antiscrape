@@ -1,17 +1,17 @@
-<?php 
+<?php
 
 namespace Antiscrape\Scrambler;
 
-use Antiscrape\Formatter\CssFormatter;
+use Antiscrape\Formatter;
 
 class GenericScrambler implements ScramblerInterface
 {
 	private $formatter;
 	private $iterations;
 
-	public function __construct(\Antiscrape\Formatter\FormatterInterface $formatter = null, $iterations = 10)
+	public function __construct(Formatter\FormatterInterface $formatter = null, $iterations = 10)
 	{
-		$this->formatter = $formatter ?: new CssFormatter();
+		$this->formatter = $formatter ?: new Formatter\CssFormatter();
 		$this->setIterations($iterations);
 	}
 
