@@ -4,30 +4,13 @@
 
 ## Example usage
 
-Add a formatter
-
 ```php
-$formatter = new CssFormatter();
+$scrambler = new Scrambler();
+$scramble = $scrambler->scramble('Lorem ipsum.');
+
+<style><?php echo CssFormatter::format($scramble); ?></style>
+<p><?php echo HtmlFormatter::format($scramble); ?></p>
 ```
-
-Instantiate a builder with the selected formatter as an argument
-
-```php
-$scrambler = new GenericScrambler($formatter);
-```
-
-Scramble your strings
-
-```php
-echo $scrambler->scramble('foo@bar.baz');
-echo $scrambler->setIterations(1)->scramble('eggs');
-```
-
-Get the generated formatting
-```
-echo '<style>' . $scrambler->getFormatting() . '</style>';
-```
-
 
 ## Todo
 
