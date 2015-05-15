@@ -10,6 +10,6 @@ class CssFormatterSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Antiscrape\Formatter\CssFormatter');
+        $this->shouldHaveType('Antiscrape\Formatter\HtmlFormatter');
     }
 }

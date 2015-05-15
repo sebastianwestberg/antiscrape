@@ -2,71 +2,76 @@
 
 namespace Antiscrape\Scrambler;
 
-use Antiscrape\Formatter\CssFormatter;
+use Antiscrape\Data\Data;
 
 class GenericScrambler implements ScramblerInterface
 {
-	private $formatter;
-	private $iterations;
+    private $input;
+    private $mockMultiplier = 5;
 
-	public function __construct(\Antiscrape\Formatter\FormatterInterface $formatter = null, $iterations = 10)
+	public function __construct($input = null)
 	{
-		$this->formatter = $formatter ?: new CssFormatter();
-		$this->setIterations($iterations);
+		$this->input = $input;
 	}
 
-	public function setIterations($iterations)
-	{
-		$this->iterations = $iterations;
-		return $this;
-	}
+    public function scramble($input = null)
+    {
+        if ($input) {
+            $this->input = $input;
+        }
 
-	public function scramble($email)
-	{
-		$elementOuterArr = $this->build($email);
-		$html = '';
+        $inputLen = str_split($this->input, 1);
+        $mockCount = strlen($this->input) * $this->mockMultiplier;
 
-		foreach ($elementOuterArr as $elementInnerArr) {
-			shuffle($elementInnerArr);
+        $stacks = $this->mergeMockData(array_map(function($char) {
+            return array($this->createData($char, 'visible'));
+        }, $inputLen), $this->createMockData($mockCount), $mockCount);
 
-			foreach ($elementInnerArr as $element) {
-				$html .= $element;
-			}
-		}
+        return $this->shuffleStacks($stacks);
+    }
 
-		return $html;
-	}
+    private function mergeMockData($stacks, $mockData, $mockCount)
+    {
+        for ($i = 0; $i < $mockCount; $i++) {
+            $randStack = mt_rand(0, count($stacks) - 1);
+            $stacks[$randStack][] = $this->createData(array_pop($mockData), 'hidden');
+        }
 
-	public function getFormatting()
-	{
-		return $this->formatter->getFormatting();
-	}
+        return $stacks;
+    }
 
-	private function build($email)
-	{
-		$formatter = $this->formatter;
+    private function shuffleStacks($stacks)
+    {
+        foreach ($stacks as $stack) {
+            shuffle($stack);
+            $shuffledStacks[] = $stack;
+        }
 
-		// Add real and visible data
-		$emailScrambler = array_map(function($val) use($formatter) {
-			$className = $formatter->nameGenerator();
+        return $shuffledStacks;
+    }
 
-			$formatter->addFormatting(array('selector' => $className, 'style' => 'display: inline'));
-			$str = sprintf('<span class="%s">%s</span>', $className, $val);
+    private function createMockData($idLen = 8, $chars = 'abcdefghijklmnopqrstuvwxyz')
+    {
+        $charsLen = strlen($chars) - 1;
+        $mockData = array();
 
-			return (array) $str;
-		}, str_split($email, 1));
+        for ($i = 0; $i < $idLen; $i++) {
+            $randEntry = mt_rand(1, $charsLen);
+            $mockData[] = $randEntry % 2 === 0 ? $chars[$randEntry] : ucfirst($chars[$randEntry]);
+        }
 
-		// Add scrap data with hidden classes
-		for ($i = 0; $i < $this->iterations; $i++) {
-			$className = $formatter->nameGenerator();
-			$randStack = mt_rand(0, count($emailScrambler) - 1);
+        return $mockData;
+    }
 
-			$emailScrambler[$randStack][] = sprintf('<span class="%s">%s</span>', $className, $i);
+    private function createData($data, $visibility)
+    {
+        return new Data($data, $visibility);
+    }
 
-			$formatter->addFormatting(array('selector' => $className, 'style' => 'display:none'));
-		}
+    public function setMultiplier($multiplier)
+    {
+        $this->mockMultiplier = $multiplier;
 
-		return $emailScrambler;
-	}
-
+        return $this;
+    }
 }

@@ -4,7 +4,5 @@ namespace Antiscrape\Formatter;
 
 interface FormatterInterface
 {
-    public function addFormatting($data);
-
-    public function getFormatting();
+    public static function format($stacks);
 }

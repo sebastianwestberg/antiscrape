@@ -4,7 +4,7 @@ namespace Antiscrape\Scrambler;
 
 interface ScramblerInterface
 {
-    public function scramble($data);
+    public function scramble();
 
-    public function setIterations($iterations);
+    public function setMultiplier($multiplier);
 }

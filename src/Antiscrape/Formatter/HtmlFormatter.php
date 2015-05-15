@@ -4,7 +4,7 @@ namespace Antiscrape\Formatter;
 
 use Antiscrape\Scrambler;
 
-class CssFormatter implements FormatterInterface
+class HtmlFormatter
 {
     public static function format($stacks)
     {
@@ -12,10 +12,9 @@ class CssFormatter implements FormatterInterface
 
         foreach ($stacks as $stack) {
             foreach ($stack as $dataObj) {
-                $style = $dataObj->getState() === 'visible' ? 'inline' : 'none';
-                $formatting .= sprintf(".%s{display:%s}", $dataObj->getId(), $style);
+                $formatting .= sprintf('<span class="%s">%s</span>', $dataObj->getId(), $dataObj->getData());
             }
-        }
+        } 
 
         return $formatting;
     }
