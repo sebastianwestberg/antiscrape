@@ -1,5 +1,6 @@
 {
     "name": "sebastianwestberg/antiscrape",
+    "description": "Securing your web data from scrapers by adding mock data that's invisible to the ordinary viewer.",
     "license": "MIT",
     "authors": [
         {
