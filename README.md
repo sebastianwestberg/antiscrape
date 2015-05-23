@@ -5,6 +5,10 @@
 ## Example usage
 
 ```php
+use Antiscrape\Scrambler\GenericScrambler as Scrambler;
+use Antiscrape\Formatter\CssFormatter;
+use Antiscrape\Formatter\HtmlFormatter;
+
 $scrambler = new Scrambler();
 $scramble = $scrambler->scramble('Lorem ipsum.');
 
